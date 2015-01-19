@@ -78,7 +78,6 @@ int main(void)
   */
 static void prvSetupHardware( void )
 {
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 	Encoder_Configuration();
 	sciConfiguration();
 	//CAN_Configuration();
@@ -102,7 +101,7 @@ void startTask ( void *pvParameters )
 	
 	xTaskCreate( CLITask, "CLI", configMINIMAL_STACK_SIZE*5, NULL, CLITask_PRIORITY, &CLITaskHandle );
 	
-	xTaskCreate( as5047dTask, "monitor", configMINIMAL_STACK_SIZE*2, NULL, 3, NULL );
+	xTaskCreate( as5047dTask, "monitor", configMINIMAL_STACK_SIZE*5, NULL, 3, NULL );
 	
 	#if (CAN_NODE != CAN_NODE_MASTER)
 	//xTaskCreate( calibrationTask, "Calibration", configMINIMAL_STACK_SIZE, NULL, 7, NULL );	

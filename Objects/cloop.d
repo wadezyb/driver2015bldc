@@ -3,7 +3,7 @@
 .\objects\cloop.o: .\sys\includes.h
 .\objects\cloop.o: .\sys\stm32f4xx.h
 .\objects\cloop.o: .\sys\core_cm4.h
-.\objects\cloop.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\cloop.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
 .\objects\cloop.o: .\sys\core_cmInstr.h
 .\objects\cloop.o: .\sys\core_cmFunc.h
 .\objects\cloop.o: .\sys\core_cm4_simd.h
@@ -36,12 +36,12 @@
 .\objects\cloop.o: .\lib\inc\stm32f4xx_dac.h
 .\objects\cloop.o: .\lib\inc\stm32f4xx_dcmi.h
 .\objects\cloop.o: .\lib\inc\stm32f4xx_fsmc.h
-.\objects\cloop.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\objects\cloop.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\objects\cloop.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-.\objects\cloop.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\cloop.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
+.\objects\cloop.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
+.\objects\cloop.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\math.h
+.\objects\cloop.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdlib.h
 .\objects\cloop.o: .\FreeRTOS\include\FreeRTOS.h
-.\objects\cloop.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\cloop.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stddef.h
 .\objects\cloop.o: .\FreeRTOS\FreeRTOSConfig.h
 .\objects\cloop.o: .\FreeRTOS\include\projdefs.h
 .\objects\cloop.o: .\FreeRTOS\include\portable.h

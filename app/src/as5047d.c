@@ -137,15 +137,13 @@ int asRead( int addr )
 /* as5047d operating task */
 void as5047dTask( void *pvParameters )
 {
-	int i=0;
 	SPI1_Init();
-	vTaskDelay(100);
+	vTaskDelay(1000);
 	for(;;)
 	{
 		vTaskDelay(100);
-		value = asRead(0X3ffe);
+		value = asRead(0X3ffe)&0x3fff;
 		//value = evenParity(i);
-		i++;
 	}
 }
 

@@ -2,7 +2,7 @@
 .\objects\pwm.o: .\sys\includes.h
 .\objects\pwm.o: .\sys\stm32f4xx.h
 .\objects\pwm.o: .\sys\core_cm4.h
-.\objects\pwm.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\pwm.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
 .\objects\pwm.o: .\sys\core_cmInstr.h
 .\objects\pwm.o: .\sys\core_cmFunc.h
 .\objects\pwm.o: .\sys\core_cm4_simd.h
@@ -35,12 +35,12 @@
 .\objects\pwm.o: .\lib\inc\stm32f4xx_dac.h
 .\objects\pwm.o: .\lib\inc\stm32f4xx_dcmi.h
 .\objects\pwm.o: .\lib\inc\stm32f4xx_fsmc.h
-.\objects\pwm.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\objects\pwm.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\objects\pwm.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-.\objects\pwm.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\pwm.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
+.\objects\pwm.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
+.\objects\pwm.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\math.h
+.\objects\pwm.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdlib.h
 .\objects\pwm.o: .\FreeRTOS\include\FreeRTOS.h
-.\objects\pwm.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\pwm.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stddef.h
 .\objects\pwm.o: .\FreeRTOS\FreeRTOSConfig.h
 .\objects\pwm.o: .\FreeRTOS\include\projdefs.h
 .\objects\pwm.o: .\FreeRTOS\include\portable.h

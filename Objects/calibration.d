@@ -2,7 +2,7 @@
 .\objects\calibration.o: .\sys\includes.h
 .\objects\calibration.o: .\sys\stm32f4xx.h
 .\objects\calibration.o: .\sys\core_cm4.h
-.\objects\calibration.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\calibration.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
 .\objects\calibration.o: .\sys\core_cmInstr.h
 .\objects\calibration.o: .\sys\core_cmFunc.h
 .\objects\calibration.o: .\sys\core_cm4_simd.h
@@ -35,12 +35,12 @@
 .\objects\calibration.o: .\lib\inc\stm32f4xx_dac.h
 .\objects\calibration.o: .\lib\inc\stm32f4xx_dcmi.h
 .\objects\calibration.o: .\lib\inc\stm32f4xx_fsmc.h
-.\objects\calibration.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\objects\calibration.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\objects\calibration.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-.\objects\calibration.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\calibration.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
+.\objects\calibration.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
+.\objects\calibration.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\math.h
+.\objects\calibration.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdlib.h
 .\objects\calibration.o: .\FreeRTOS\include\FreeRTOS.h
-.\objects\calibration.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\calibration.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stddef.h
 .\objects\calibration.o: .\FreeRTOS\FreeRTOSConfig.h
 .\objects\calibration.o: .\FreeRTOS\include\projdefs.h
 .\objects\calibration.o: .\FreeRTOS\include\portable.h

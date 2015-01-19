@@ -1,6 +1,6 @@
 .\objects\canopen.o: app\src\canopen.c
 .\objects\canopen.o: .\app\inc\canopen.h
-.\objects\canopen.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\canopen.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
 .\objects\canopen.o: .\sys\includes.h
 .\objects\canopen.o: .\sys\stm32f4xx.h
 .\objects\canopen.o: .\sys\core_cm4.h
@@ -36,12 +36,12 @@
 .\objects\canopen.o: .\lib\inc\stm32f4xx_dac.h
 .\objects\canopen.o: .\lib\inc\stm32f4xx_dcmi.h
 .\objects\canopen.o: .\lib\inc\stm32f4xx_fsmc.h
-.\objects\canopen.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\objects\canopen.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\objects\canopen.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-.\objects\canopen.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\canopen.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
+.\objects\canopen.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
+.\objects\canopen.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\math.h
+.\objects\canopen.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdlib.h
 .\objects\canopen.o: .\FreeRTOS\include\FreeRTOS.h
-.\objects\canopen.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\canopen.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stddef.h
 .\objects\canopen.o: .\FreeRTOS\FreeRTOSConfig.h
 .\objects\canopen.o: .\FreeRTOS\include\projdefs.h
 .\objects\canopen.o: .\FreeRTOS\include\portable.h
