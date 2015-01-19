@@ -91,19 +91,89 @@ void pwmConfiguration( void )
 	TIM_Cmd(TIM1,ENABLE);
 }
 
-/**
-  * @brief  TIM1_CC_IRQHandler
-	* @param  None
-  * @retval None
-  */
-void TIM1_CC_IRQHandler(void)
+///**
+//  * @brief  TIM1_CC_IRQHandler
+//	* @param  None
+//  * @retval None
+//  */
+//void TIM1_CC_IRQHandler(void)
+//{
+//	if(TIM_GetITStatus(TIM1,TIM_IT_CC4) == SET)
+//	{
+//		TIM_ClearITPendingBit(TIM1,TIM_IT_CC4);
+//		TIM_ClearFlag(TIM1,TIM_FLAG_CC4);
+//		TIM1->SR = 0;	
+//	}
+//}
+/*
+****	Test PWM hardware.
+*/
+void testPWMTask( void *pvParameters )
 {
-	if(TIM_GetITStatus(TIM1,TIM_IT_CC4) == SET)
+	int i = 1000;
+	int pwm = 500;
+	//test pwm1
+	vTaskDelay(1000);
+	for(;;)
 	{
-		TIM_ClearITPendingBit(TIM1,TIM_IT_CC4);
-		TIM_ClearFlag(TIM1,TIM_FLAG_CC4);
-		TIM1->SR = 0;	
+
+
+//		PWMA_EN();
+//		PWM1_SET(TIM1,pwm);
+//		PWM2_SET(TIM1,0);
+//		PWM3_SET(TIM1,0);
+//		vTaskDelay(1000);
+//		PWMA_DIS();
+//		
+//		PWMB_EN();
+//		PWM1_SET(TIM1,0);
+//		PWM2_SET(TIM1,pwm);
+//		PWM3_SET(TIM1,0);
+//		vTaskDelay(1000);
+//		PWMB_DIS();
+//		
+//		PWMC_EN();
+//		PWM1_SET(TIM1,0);
+//		PWM2_SET(TIM1,0);
+//		PWM3_SET(TIM1,pwm);
+//		vTaskDelay(1000);
+//		PWMC_DIS();
+		//		PWMOFF();
+
+		//		vTaskDelay(500);
+		PWMAB(TIM1,pwm);
+		vTaskDelay(i);
+		PWMAC(TIM1,pwm);
+		vTaskDelay(i);
+		PWMBC(TIM1,pwm);
+		vTaskDelay(i);
+		PWMBA(TIM1,pwm);
+		vTaskDelay(i);
+		PWMCA(TIM1,pwm);
+		vTaskDelay(i);
+		PWMCB(TIM1,pwm);
+		vTaskDelay(i);
+		
 	}
+
+//	//test pwm2
+//	for(i=0;i<10;i++)
+//	{
+//		PWMON();
+//		PWM_SET(0,pwm,0);
+//		vTaskDelay(1000);
+//	}
+//	PWMOFF();
+//	vTaskDelay(5000);
+//	//test pwm3
+//	for(i=0;i<10;i++)
+//	{
+//		PWMON();
+//		PWM_SET(0,0,pwm);
+//		vTaskDelay(1000);
+//	}
+//	PWMOFF();
+//	vTaskDelay(5000);
 }
 
 /*========================== END OF FILE =======================================*/

@@ -367,15 +367,17 @@ void currentLoop( void )
 
 void test_cloopTask( void *pvParameters )
 {
-//	int angle= 0;
-//	float theta = 0;
-//	A = 100;
+	int angle= 0;
+	float theta = 0;
+	A = 100;
+	vTaskDelay(1000);
+	PWMON();
 	for(;;)
 	{
-//		angle = angle + 1;
-//		theta = angle*PI/1800;
-//		runSVPWM(A,theta);
-		currentLoop();
+		angle = angle + 1;
+		theta = angle*PI/1800;
+		runSVPWM(A,theta);
+		//currentLoop();
 		vTaskDelay(1);
 	}
 }

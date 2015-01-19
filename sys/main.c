@@ -55,7 +55,7 @@ int CLITask_PRIORITY				= 5;
 
 int main(void)
 {
-	SystemCoreClockUpdate();
+	//SystemCoreClockUpdate();
 	prvSetupHardware();
 
 	/* Create the start task */
@@ -78,10 +78,10 @@ int main(void)
   */
 static void prvSetupHardware( void )
 {
-	Encoder_Configuration();
+	//Encoder_Configuration();
 	sciConfiguration();
 	//CAN_Configuration();
-	//pwmConfiguration();
+	pwmConfiguration();
 	//ADC_Configuration();
 	//vPI_Init();
 	//currentLoopInit();
@@ -95,13 +95,15 @@ static void prvSetupHardware( void )
 void startTask ( void *pvParameters )
 {
 	// These Tasks are run all the way around.
-	xTaskCreate( ledTask, "led", configMINIMAL_STACK_SIZE, NULL, ledTask_PRIORITY, &ledTaskHandle );
+	xTaskCreate( ledTask, "led", configMINIMAL_STACK_SIZE*2, NULL, ledTask_PRIORITY, &ledTaskHandle );
 	
-	xTaskCreate( sciSendTask, "sciSend", configMINIMAL_STACK_SIZE, NULL, sciSendTask_PRIORITY, &sciTaskHandle );
+	xTaskCreate( sciSendTask, "sciSend", configMINIMAL_STACK_SIZE*2, NULL, sciSendTask_PRIORITY, &sciTaskHandle );
 	
 	xTaskCreate( CLITask, "CLI", configMINIMAL_STACK_SIZE*5, NULL, CLITask_PRIORITY, &CLITaskHandle );
 	
-	xTaskCreate( as5047dTask, "monitor", configMINIMAL_STACK_SIZE*5, NULL, 3, NULL );
+	xTaskCreate( test_cloopTask, "testPWMTask", configMINIMAL_STACK_SIZE*2, NULL, 2, NULL );
+	
+	xTaskCreate( as5047dTask, "as5047dTask", configMINIMAL_STACK_SIZE*2, NULL, 3, NULL );
 	
 	#if (CAN_NODE != CAN_NODE_MASTER)
 	//xTaskCreate( calibrationTask, "Calibration", configMINIMAL_STACK_SIZE, NULL, 7, NULL );	

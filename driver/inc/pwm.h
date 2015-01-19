@@ -1,10 +1,10 @@
 #ifndef _PWM_H_
 #define _PWM_H_
 
-//#define T_PWM (3360/2)//50kHz
+#define T_PWM (3360/2)//50kHz
 //#define T_PWM (5250)//16kHz
 //#define T_PWM (8400)//10kHz
-#define T_PWM (4200)//20kHz
+//#define T_PWM (4200)//20kHz
 /*
 * PWM½Ó¿Ú:
 * PWM1->PA9->TIM1 CH2
@@ -38,6 +38,8 @@
 #define PWMON() {PWMA_EN();PWMB_EN();PWMC_EN();}
 #define PWMOFF() {PWMA_DIS();PWMB_DIS();PWMC_DIS();}
 
+#define PWM_SET(pwm1,pwm2,pwm3) {PWM1_SET(TIM1,pwm1);PWM2_SET(TIM1,pwm2);PWM3_SET(TIM1,pwm3);}
+
 void pwmConfiguration( void );
-//void PWMAB(int pwm);
+void testPWMTask( void *pvParameters );
 #endif
