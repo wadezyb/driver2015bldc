@@ -69,3 +69,4 @@
 .\objects\main.o: .\app\inc\canopen.h
 .\objects\main.o: .\app\inc\cloop.h
 .\objects\main.o: .\app\inc\interpolation.h
+.\objects\main.o: .\app\inc\as5047d.h

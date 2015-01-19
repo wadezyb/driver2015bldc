@@ -4,7 +4,7 @@
 #define CAN_NODE3 (0X03)
 #define CAN_NODE4 (0X04)
 #define CAN_NODE_MASTER (0X05)
-#define CAN_NODE CAN_NODE2
+#define CAN_NODE CAN_NODE1
 
 /*standard lib*/
 #include "stm32f4xx.h"

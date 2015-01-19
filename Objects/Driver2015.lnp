@@ -31,12 +31,14 @@
 ".\objects\statemonitor.o"
 ".\objects\vloop.o"
 ".\objects\calibration.o"
+".\objects\as5047d.o"
 ".\objects\ad.o"
 ".\objects\can.o"
 ".\objects\encoder.o"
 ".\objects\pwm.o"
 ".\objects\sci.o"
 ".\objects\led.o"
+".\objects\spi.o"
 --strict --scatter ".\Objects\Driver2015.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

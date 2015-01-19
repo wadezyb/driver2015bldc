@@ -32,7 +32,7 @@ absObj absEnc;						// for absolute encoder
   * @param  None
   * @retval None
   */
-void EncoderInit( void )
+void EncoderObjInit( void )
 {
 	Encoder.LastP = 0;
 	Encoder.LastV = 0;
@@ -53,18 +53,18 @@ void TIM6_Configuration(void)
 {
 	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 	NVIC_InitTypeDef   NVIC_InitStructure;
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM6 , ENABLE);	        //使能TIM2的时钟
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM6 , ENABLE);	       
 
-	TIM_TimeBaseStructure.TIM_Period = (16800-1); 						//1000us
-	TIM_TimeBaseStructure.TIM_Prescaler =5-1; 	                    //分频系数    计数频率=CLK/(Prescaler+1)  即1秒能计数CLK/(Prescaler+1)
-	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; 	                //采样分频
-	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;     //向上计数
+	TIM_TimeBaseStructure.TIM_Period = (16800-1); 						
+	TIM_TimeBaseStructure.TIM_Prescaler =5-1; 	              
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; 	
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
 	TIM_TimeBaseStructure.TIM_RepetitionCounter = 0; 		
 	TIM_TimeBaseInit(TIM6, &TIM_TimeBaseStructure); 
 
-	TIM_ClearFlag(TIM6, TIM_FLAG_Update); 	                        //清中断，以免一启用中断后立即产生中断 
-	TIM_ITConfig(TIM6, TIM_IT_Update, ENABLE);                      //使能TIM2中断源 
-	TIM_Cmd(TIM6, ENABLE); 		                                    //TIM2总开关：开启 
+	TIM_ClearFlag(TIM6, TIM_FLAG_Update); 	                   
+	TIM_ITConfig(TIM6, TIM_IT_Update, ENABLE);                 
+	TIM_Cmd(TIM6, ENABLE); 		                                 
 
 	NVIC_InitStructure.NVIC_IRQChannel = TIM6_DAC_IRQn;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
@@ -75,6 +75,10 @@ void TIM6_Configuration(void)
   * @brief  Initialize the Encoder Interface
   * @param  None
   * @retval None
+	* @note 	PB0->EA
+						PB1->EB
+						PC11->EZ
+						TIM3 FOR ABZ ENCODER
   */
 void Encoder_Configuration(void)
 {
@@ -83,36 +87,37 @@ void Encoder_Configuration(void)
 	/* Set the clock */
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3 ,ENABLE);
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2 ,ENABLE);
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA+ RCC_AHB1Periph_GPIOC,ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA+RCC_AHB1Periph_GPIOB+ RCC_AHB1Periph_GPIOC,ENABLE);
 
-	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init(&NVIC_InitStructure);
-	NVIC_SetPriority(TIM3_IRQn,15);
+//	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
+//	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+//	NVIC_Init(&NVIC_InitStructure);
+//	NVIC_SetPriority(TIM3_IRQn,15);
 	
 	/* Set the IO */
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0+GPIO_Pin_1;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Low_Speed;
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	GPIO_Init(GPIOB, &GPIO_InitStructure);
 
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_11;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Low_Speed;
+	GPIO_InitStructure.GPIO_Speed = GPIO_High_Speed;
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-	GPIO_Init(GPIOC, &GPIO_InitStructure);
+	//GPIO_Init(GPIOC, &GPIO_InitStructure);
 
-	GPIO_PinAFConfig(GPIOC,GPIO_PinSource7,GPIO_AF_TIM3);
-	GPIO_PinAFConfig(GPIOA,GPIO_PinSource6,GPIO_AF_TIM3);
+	//GPIO_PinAFConfig(GPIOC,GPIO_PinSource11,GPIO_AF_UART4);
+	GPIO_PinAFConfig(GPIOB,GPIO_PinSource0,GPIO_AF_TIM3);
+	GPIO_PinAFConfig(GPIOB,GPIO_PinSource1,GPIO_AF_TIM3);
 
 	/* Set the Encoder Mode */
 	TIM_SetAutoreload(TIM3,INC_ENC_REVOLUTION-1);
 	TIM_EncoderInterfaceConfig(TIM3,TIM_EncoderMode_TI12,TIM_ICPolarity_Falling,TIM_ICPolarity_Falling);
 	TIM_Cmd(TIM3,ENABLE);
-	EncoderInit();
-	TIM6_Configuration();
-	USART4_Configuration();
+	EncoderObjInit();
+	//TIM6_Configuration();
+	//USART4_Configuration();
 	
 }	
 /**
@@ -187,7 +192,7 @@ void UART4_IRQHandler(void)
 	USART_ClearFlag(UART4,USART_FLAG_TC);
 	USART_ClearFlag(UART4,USART_FLAG_RXNE);
 	inData = UART4->DR;
-	//USART3->DR = inData;
+	//USART4->DR = inData;
 	if(inData == 0x8D)
 	{
 		absEnc.flag |= 0x01;

@@ -31,8 +31,8 @@
           <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
-          <SFDFile>$$Device:STM32F405RGTx$CMSIS\SVD\STM32F40x.svd</SFDFile>
-          <bCustSvd>0</bCustSvd>
+          <SFDFile>C:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.3.0\CMSIS\SVD\STM32F40x.SFR</SFDFile>
+          <bCustSvd>1</bCustSvd>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
           <IncludePath></IncludePath>
@@ -50,7 +50,7 @@
           <OutputName>Driver2015</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
-          <CreateHexFile>0</CreateHexFile>
+          <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\Listings\</ListingPath>
@@ -85,7 +85,7 @@
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
           </AfterMake>
-          <SelectedForBatchBuild>0</SelectedForBatchBuild>
+          <SelectedForBatchBuild>1</SelectedForBatchBuild>
           <SVCSIdString></SVCSIdString>
         </TargetCommonOption>
         <CommonProperty>
@@ -583,6 +583,11 @@
               <FileType>1</FileType>
               <FilePath>.\app\src\calibration.c</FilePath>
             </File>
+            <File>
+              <FileName>as5047d.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\app\src\as5047d.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -617,6 +622,11 @@
               <FileName>led.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\driver\src\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\driver\src\spi.c</FilePath>
             </File>
           </Files>
         </Group>

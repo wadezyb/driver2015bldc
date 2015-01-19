@@ -24,6 +24,7 @@
 #include "canopen.h"
 #include "cloop.h"
 #include "interpolation.h"
+#include "as5047d.h"
 
 static void prvSetupHardware( void );
 void startTask ( void *pvParameters );
@@ -80,11 +81,11 @@ static void prvSetupHardware( void )
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 	Encoder_Configuration();
 	sciConfiguration();
-	CAN_Configuration();
-	pwmConfiguration();
-	ADC_Configuration();
-	vPI_Init();
-	currentLoopInit();
+	//CAN_Configuration();
+	//pwmConfiguration();
+	//ADC_Configuration();
+	//vPI_Init();
+	//currentLoopInit();
 }
 
 /**
@@ -101,17 +102,17 @@ void startTask ( void *pvParameters )
 	
 	xTaskCreate( CLITask, "CLI", configMINIMAL_STACK_SIZE*5, NULL, CLITask_PRIORITY, &CLITaskHandle );
 	
-	xTaskCreate( driveStateManageTask, "monitor", configMINIMAL_STACK_SIZE*2, NULL, 9, NULL );
+	xTaskCreate( as5047dTask, "monitor", configMINIMAL_STACK_SIZE*2, NULL, 3, NULL );
 	
 	#if (CAN_NODE != CAN_NODE_MASTER)
-	xTaskCreate( calibrationTask, "Calibration", configMINIMAL_STACK_SIZE, NULL, 7, NULL );	
+	//xTaskCreate( calibrationTask, "Calibration", configMINIMAL_STACK_SIZE, NULL, 7, NULL );	
 //	
 	
 	#endif
 	
 //	xTaskCreate( sendPositionTask, "sendPosition", configMINIMAL_STACK_SIZE*2, NULL, 2, NULL );
 //	
-	xTaskCreate( canopenDataSyncTask, "dataSync", configMINIMAL_STACK_SIZE*4, NULL, 8, NULL );
+	//xTaskCreate( canopenDataSyncTask, "dataSync", configMINIMAL_STACK_SIZE*4, NULL, 8, NULL );
 	#if( CAN_NODE == CAN_NODE_MASTER )
 	//xTaskCreate( MotionPlanningTask, "MotionPlanning", configMINIMAL_STACK_SIZE*4, NULL, 10, NULL );
 	#endif
