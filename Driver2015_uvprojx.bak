@@ -584,16 +584,6 @@
               <FileType>1</FileType>
               <FilePath>.\app\src\as5047d.c</FilePath>
             </File>
-            <File>
-              <FileName>tempture.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\app\src\tempture.c</FilePath>
-            </File>
-            <File>
-              <FileName>voltage.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\app\src\voltage.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
