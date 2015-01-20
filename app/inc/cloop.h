@@ -2,6 +2,15 @@
 #define _CLOOP_H_
 
 #define Tz (T_PWM-100)
+#define PI (float)(3.14159265359)
+#define CURRENT_R (12.0) 				//mO
+#define CURRENT_AMP (20.0) 			// time
+#define CURRENT_V (3300.0)			// mV
+#define ADC_RESOLUTION (4096.0)	// 12-bit resolution ADC_VALUE
+#define CURRENT_K ( 4.17 ) // mA/ADC_VALUE
+#define FACTOR1 (float)(1.1547)//  2/SQRT(3)
+#define THETA1 (3600/6)	//  PI/3
+
 typedef struct
 {
 	int error;
@@ -70,8 +79,9 @@ extern int Cti;
 
 float SIN( int pos );
 float COS( int pos );
+void runSVPWM( int Vref, float theta );
 void currentLoopInit( void );
 void currentLoop( void );
 void test_cloopTask( void *pvParameters );
-
+void testSVPWMTask( void *pvParameters );
 #endif

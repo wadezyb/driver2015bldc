@@ -70,3 +70,6 @@
 .\objects\main.o: .\app\inc\cloop.h
 .\objects\main.o: .\app\inc\interpolation.h
 .\objects\main.o: .\app\inc\as5047d.h
+.\objects\main.o: .\driver\inc\spi.h
+.\objects\main.o: .\app\inc\tempture.h
+.\objects\main.o: .\app\inc\voltage.h

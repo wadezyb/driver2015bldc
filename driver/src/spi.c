@@ -1,7 +1,6 @@
 #include "spi.h"
 #include "includes.h"
 
-
 void SPI1_Init()
 {
 	SPI_InitTypeDef SPI_InitStructure;
@@ -39,11 +38,9 @@ void SPI1_Init()
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
 	GPIO_Init(GPIOB,&GPIO_InitStructure);
 	
-
-	
 	// Setup SPI
 	SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
-	SPI_InitStructure.SPI_BaudRatePrescaler =SPI_BaudRatePrescaler_32;
+	SPI_InitStructure.SPI_BaudRatePrescaler =SPI_BaudRatePrescaler_16;
 	SPI_InitStructure.SPI_Mode=SPI_Mode_Master;
 	SPI_InitStructure.SPI_DataSize=SPI_DataSize_16b;
 	SPI_InitStructure.SPI_CPOL=SPI_CPOL_Low;
@@ -51,8 +48,8 @@ void SPI1_Init()
 	SPI_InitStructure.SPI_FirstBit=SPI_FirstBit_MSB;
 	SPI_InitStructure.SPI_NSS=SPI_NSS_Soft;
 	SPI_Init(SPI1,&SPI_InitStructure);
-	
-	//Enable SPI1
+
+    //Enable SPI1
 	SPI_Cmd(SPI1,ENABLE);
 	SPI_NSSInternalSoftwareConfig(SPI1,SPI_NSSInternalSoft_Set);
 }

@@ -53,10 +53,10 @@
 .\objects\calibration.o: .\FreeRTOS\include\timers.h
 .\objects\calibration.o: .\app\inc\calibration.h
 .\objects\calibration.o: .\driver\inc\encoder.h
-.\objects\calibration.o: .\app\inc\foc.h
 .\objects\calibration.o: .\driver\inc\pwm.h
 .\objects\calibration.o: .\driver\inc\ad.h
 .\objects\calibration.o: .\app\inc\canopen.h
 .\objects\calibration.o: .\app\inc\ploop.h
 .\objects\calibration.o: .\app\inc\pid.h
 .\objects\calibration.o: .\app\inc\cloop.h
+.\objects\calibration.o: .\app\inc\as5047d.h

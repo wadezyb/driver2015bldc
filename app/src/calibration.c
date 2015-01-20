@@ -11,12 +11,58 @@
 #include "includes.h"
 #include "calibration.h"
 #include "encoder.h"
-#include "foc.h"
 #include "pwm.h"
 #include "ad.h"
 #include "canopen.h"
 #include "ploop.h"
 #include "cloop.h"
+#include "as5047d.h"
+int pos[10];
+int offset[10];
+int sum = 0;
+int averageOffset = 0;
+/* Find Zero Pos */
+void calibrateRotorZeroPos( void )
+{
+	int A = T_PWM/8;
+	int angle = 0;
+	float theta = 0;
+	int i,j;
+	int p[]={0,-512,-512*2,-512*3,-512*4,-512*5,-512*6,-512*7};
+	// Enable PWM
+	PWMON();
+	
+	// Set 0 SVPWM
+	runSVPWM(A,theta);
+	vTaskDelay(2000);
+	pos[0] = getEncoderValue();
+	vTaskDelay(100);
+	
+	// Record data
+	for( j=0;j<8;j++ )
+	{
+		for(i=0;i<900;i++)
+		{
+			vTaskDelay(1);
+			angle = angle + 1;
+			theta = angle*PI/1800;
+			runSVPWM(A,theta);
+		}
+		vTaskDelay(500);
+		pos[j] = getEncoderValue();
+		vTaskDelay(100);	
+	}
+	PWMOFF();
+	
+	// Calc the Offset
+	for(i=0;i<8;i++)
+	{
+		offset[i] = (pos[i]-p[i])%4096;
+		sum += offset[i];
+	}
+	averageOffset = sum/8;
+}
+
 
 /**
   * @brief  Calibrate the encoder
@@ -50,9 +96,10 @@ void FOC_Calibrate( void )
   */
 void calibrationTask( void *pvParameters )
 {
-	vTaskDelay(3000);
-	FOC_Calibrate();
+	vTaskDelay(2000);
+	//FOC_Calibrate();
 	CurrentOffsetCalibration();
+	calibrateRotorZeroPos();
 	StatusWord.Param |= STATUSWORD_BIT0;
 	for(;;)
 	{
@@ -79,7 +126,6 @@ void CurrentOffsetCalibration( void )
 	}
 	Current.IA_Offset = sum1/n;
 	Current.IB_Offset = sum2/n;
-	vTaskDelete(NULL);
 }
 
 

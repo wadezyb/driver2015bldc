@@ -25,6 +25,9 @@
 #include "cloop.h"
 #include "interpolation.h"
 #include "as5047d.h"
+#include "spi.h"
+#include "tempture.h"
+#include "voltage.h"
 
 static void prvSetupHardware( void );
 void startTask ( void *pvParameters );
@@ -79,12 +82,13 @@ int main(void)
 static void prvSetupHardware( void )
 {
 	//Encoder_Configuration();
+	SPI1_Init();
 	sciConfiguration();
 	//CAN_Configuration();
 	pwmConfiguration();
-	//ADC_Configuration();
+	ADC_Configuration();
 	//vPI_Init();
-	//currentLoopInit();
+	currentLoopInit();
 }
 
 /**
@@ -101,9 +105,9 @@ void startTask ( void *pvParameters )
 	
 	xTaskCreate( CLITask, "CLI", configMINIMAL_STACK_SIZE*5, NULL, CLITask_PRIORITY, &CLITaskHandle );
 	
-	xTaskCreate( test_cloopTask, "testPWMTask", configMINIMAL_STACK_SIZE*2, NULL, 2, NULL );
+  xTaskCreate( temptureTestTask, "temptureTestTask", configMINIMAL_STACK_SIZE*2, NULL, 2, NULL );
 	
-	xTaskCreate( as5047dTask, "as5047dTask", configMINIMAL_STACK_SIZE*2, NULL, 3, NULL );
+	xTaskCreate( voltageTestTask, "testSVPWMTask", configMINIMAL_STACK_SIZE*2, NULL, 3, NULL );
 	
 	#if (CAN_NODE != CAN_NODE_MASTER)
 	//xTaskCreate( calibrationTask, "Calibration", configMINIMAL_STACK_SIZE, NULL, 7, NULL );	

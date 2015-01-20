@@ -3,15 +3,7 @@
 #include "pwm.h"
 #include "encoder.h"
 #include "cli.h"
-
-#define PI (float)(3.14159265359)
-#define CURRENT_R (20.0) 				//mO
-#define CURRENT_AMP (20.0) 			// time
-#define CURRENT_V (3300.0)			// mV
-#define ADC_RESOLUTION (4096.0)	// 12-bit resolution ADC_VALUE
-#define CURRENT_K ( 2 ) // mA/ADC_VALUE
-#define FACTOR1 (float)(1.1547)//  2/SQRT(3)
-#define THETA1 (3600/6)	//  PI/3
+#include "as5047d.h"
 
 cLoopObj Current;
 
@@ -152,15 +144,15 @@ void currentLoopInit( void )
 	Current.IA_Offset = 2048;
 	Current.IB_Offset = 2048;
 	
-	Current.dPI.kp = 2500;
-	Current.dPI.ki = 50;
+	Current.dPI.kp = 1000;
+	Current.dPI.ki = 1;
 	Current.dPI.scale = 100;
 	Current.dPI.output_max = 4000;
 	Current.dPI.output_min = -4000;
 	Current.dPI.sum_error_max = 4000*Current.dPI.scale;
 	
-	Current.qPI.kp = 2500;//2500 for axis 1-3
-	Current.qPI.ki = 50;
+	Current.qPI.kp = 1000;
+	Current.qPI.ki = 1;
 	Current.qPI.scale = 100;
 	Current.qPI.output_max = 4000;
 	Current.qPI.output_min = -4000;
@@ -283,17 +275,26 @@ void cloopTuning( void )
 }
 void currentLoop( void )
 {
+	int temp;
+	int tempA;
+	int tempB;
 	Current.Iq_exp = Current.targetCurrent;
 	
 	//Read Encoder Angle
-	Current.Theta = 3600*(ELEC_REVOLUTION_INC-TIM3->CNT%ELEC_REVOLUTION_INC)/(ELEC_REVOLUTION_INC);
+	//Current.Theta = 3600*(ELEC_REVOLUTION_INC-TIM3->CNT%ELEC_REVOLUTION_INC)/(ELEC_REVOLUTION_INC);
+	temp = getEncoderValue();
+	Current.Theta = 3600*(temp%ELEC_REVOLUTION_INC)/(ELEC_REVOLUTION_INC);
 	
 	//Read current value from ADC1
-	Current.IA = -(ADC1->JDR2 - Current.IA_Offset)*CURRENT_K;//mA
-	Current.IB = -(ADC1->JDR1 - Current.IB_Offset)*CURRENT_K;//mA
+	tempA = ADC1->JDR1;
+	tempB = ADC1->JDR2;
+	Current.IA = -(tempA - Current.IA_Offset)*CURRENT_K;//mA
+	Current.IB = -(tempB - Current.IB_Offset)*CURRENT_K;//mA
+	
 	//Clarke Transform: Calc the I Alpha and I Beta
 	Current.IAlpha = Current.IA;
 	Current.IBeta = 0.57735*Current.IA + 1.1547*Current.IB;
+	
 	//Park Transform: Calc the Iq and Id
 	Current.Id = Current.IAlpha*COS(Current.Theta)+Current.IBeta*SIN(Current.Theta);
 	Current.Iq = -Current.IAlpha*SIN(Current.Theta)+Current.IBeta*COS(Current.Theta);
@@ -301,7 +302,7 @@ void currentLoop( void )
 	//Calc the error
 	Current.dPI.error = Current.Id_exp - Current.Id;
 	Current.qPI.error = Current.Iq_exp - Current.Iq;
-	//Calc 
+	//Calc
 	Current.dPI.sum_error += Current.dPI.ki*Current.dPI.error;
 	Current.qPI.sum_error += Current.qPI.ki*Current.qPI.error;
 	//d PI error sum limitation
@@ -321,7 +322,7 @@ void currentLoop( void )
 	else if( Current.qPI.sum_error < -Current.qPI.sum_error_max )
 	{
 		Current.qPI.sum_error = -Current.qPI.sum_error_max;
-	}	
+	}
 	
 	//PI Control for Id and Iq
 	Current.dPI.output = (Current.dPI.kp*Current.dPI.error + Current.dPI.sum_error)/Current.dPI.scale;
@@ -364,21 +365,31 @@ void currentLoop( void )
 }
 
 
+void testSVPWMTask( void *pvParameters )
+{
+    int angle= 0;
+    float theta = 0;
+    A = 100;
+    vTaskDelay(1000);
+    PWMON();
+    for(;;)
+    {
+        angle = angle + 10;
+        theta = angle*PI/1800;
+        runSVPWM(A,theta);
+        vTaskDelay(1);
+    }
+}
 
 void test_cloopTask( void *pvParameters )
 {
-	int angle= 0;
-	float theta = 0;
-	A = 200;
 	vTaskDelay(1000);
-	PWMON();
+	//PWMON();
+	currentLoopInit();
 	for(;;)
 	{
-		angle = angle + 50;
-		theta = angle*PI/1800;
-		runSVPWM(A,theta);
-		//currentLoop();
-		vTaskDelay(1);
+        currentLoop();
+        vTaskDelay(1);
 	}
 }
 

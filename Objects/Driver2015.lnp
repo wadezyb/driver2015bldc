@@ -32,6 +32,8 @@
 ".\objects\vloop.o"
 ".\objects\calibration.o"
 ".\objects\as5047d.o"
+".\objects\tempture.o"
+".\objects\voltage.o"
 ".\objects\ad.o"
 ".\objects\can.o"
 ".\objects\encoder.o"

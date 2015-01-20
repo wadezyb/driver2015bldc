@@ -83,7 +83,7 @@ void TIM6_Configuration(void)
 void Encoder_Configuration(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
-	NVIC_InitTypeDef NVIC_InitStructure;
+//	NVIC_InitTypeDef NVIC_InitStructure;
 	/* Set the clock */
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3 ,ENABLE);
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2 ,ENABLE);

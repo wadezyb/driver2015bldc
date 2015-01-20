@@ -55,3 +55,4 @@
 .\objects\cloop.o: .\driver\inc\pwm.h
 .\objects\cloop.o: .\driver\inc\encoder.h
 .\objects\cloop.o: .\app\inc\cli.h
+.\objects\cloop.o: .\app\inc\as5047d.h
