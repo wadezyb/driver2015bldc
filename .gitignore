@@ -1,3 +1,5 @@
 /Listings/
 /Objects/
 *.bak
+*.db
+*.eeuser
