@@ -3,7 +3,7 @@
 .\objects\interpolation.o: .\sys\includes.h
 .\objects\interpolation.o: .\sys\stm32f4xx.h
 .\objects\interpolation.o: .\sys\core_cm4.h
-.\objects\interpolation.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
+.\objects\interpolation.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\interpolation.o: .\sys\core_cmInstr.h
 .\objects\interpolation.o: .\sys\core_cmFunc.h
 .\objects\interpolation.o: .\sys\core_cm4_simd.h
@@ -36,12 +36,12 @@
 .\objects\interpolation.o: .\lib\inc\stm32f4xx_dac.h
 .\objects\interpolation.o: .\lib\inc\stm32f4xx_dcmi.h
 .\objects\interpolation.o: .\lib\inc\stm32f4xx_fsmc.h
-.\objects\interpolation.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
-.\objects\interpolation.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
-.\objects\interpolation.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\math.h
-.\objects\interpolation.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdlib.h
+.\objects\interpolation.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\interpolation.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\interpolation.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\interpolation.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\interpolation.o: .\FreeRTOS\include\FreeRTOS.h
-.\objects\interpolation.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stddef.h
+.\objects\interpolation.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\interpolation.o: .\FreeRTOS\FreeRTOSConfig.h
 .\objects\interpolation.o: .\FreeRTOS\include\projdefs.h
 .\objects\interpolation.o: .\FreeRTOS\include\portable.h

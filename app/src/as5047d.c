@@ -1,3 +1,7 @@
+/*
+
+*/
+
 #include "as5047d.h"
 #include "includes.h"
 #include "spi.h"

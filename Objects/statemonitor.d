@@ -3,7 +3,7 @@
 .\objects\statemonitor.o: .\sys\includes.h
 .\objects\statemonitor.o: .\sys\stm32f4xx.h
 .\objects\statemonitor.o: .\sys\core_cm4.h
-.\objects\statemonitor.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
+.\objects\statemonitor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\statemonitor.o: .\sys\core_cmInstr.h
 .\objects\statemonitor.o: .\sys\core_cmFunc.h
 .\objects\statemonitor.o: .\sys\core_cm4_simd.h
@@ -36,12 +36,12 @@
 .\objects\statemonitor.o: .\lib\inc\stm32f4xx_dac.h
 .\objects\statemonitor.o: .\lib\inc\stm32f4xx_dcmi.h
 .\objects\statemonitor.o: .\lib\inc\stm32f4xx_fsmc.h
-.\objects\statemonitor.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
-.\objects\statemonitor.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
-.\objects\statemonitor.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\math.h
-.\objects\statemonitor.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdlib.h
+.\objects\statemonitor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\statemonitor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\statemonitor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\statemonitor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\statemonitor.o: .\FreeRTOS\include\FreeRTOS.h
-.\objects\statemonitor.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stddef.h
+.\objects\statemonitor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\statemonitor.o: .\FreeRTOS\FreeRTOSConfig.h
 .\objects\statemonitor.o: .\FreeRTOS\include\projdefs.h
 .\objects\statemonitor.o: .\FreeRTOS\include\portable.h
