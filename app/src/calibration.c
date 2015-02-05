@@ -35,7 +35,7 @@ void calibrateRotorZeroPos( void )
 	// Set 0 SVPWM
 	runSVPWM(A,theta);
 	vTaskDelay(2000);
-	pos[0] = getEncoderValue();
+	pos[0] = getEncoderValue()/4;
 	vTaskDelay(100);
 	
 	// Record data
@@ -49,7 +49,7 @@ void calibrateRotorZeroPos( void )
 			runSVPWM(A,theta);
 		}
 		vTaskDelay(500);
-		pos[j] = getEncoderValue();
+		pos[j] = getEncoderValue()/4;
 		vTaskDelay(100);	
 	}
 	PWMOFF();
@@ -71,24 +71,10 @@ void calibrateRotorZeroPos( void )
   */
 void EncCalibrate( void )
 {
-	TIM3->CNT = ((4096 - absEnc.single))*INC_ENC_REVOLUTION/4096;
-	vTaskDelay(100);
-	if( absEnc.value > 0 )
-		Encoder.Multi = absEnc.value/INC_ENC_REVOLUTION;
-	else
-		Encoder.Multi = absEnc.value/INC_ENC_REVOLUTION - 1;
-	Position.targetPosition = Encoder.Multi*INC_ENC_REVOLUTION + Encoder.Single;
+//	int temp = getEncoderValue();
+//	TIM3->CNT = (temp)*INC_ENC_REVOLUTION/4096;
 }
-/**
-  * @brief  Calibrate the FOC
-  * @param  None
-  * @retval None
-  */
-void FOC_Calibrate( void )
-{
-	EncCalibrate();
-	PWMOFF();
-}
+
 /**
   * @brief  Calibration Task
   * @param  None
@@ -97,9 +83,9 @@ void FOC_Calibrate( void )
 void calibrationTask( void *pvParameters )
 {
 	vTaskDelay(2000);
-	//FOC_Calibrate();
+	//EncCalibrate();
 	CurrentOffsetCalibration();
-	calibrateRotorZeroPos();
+	//calibrateRotorZeroPos();
 	StatusWord.Param |= STATUSWORD_BIT0;
 	for(;;)
 	{

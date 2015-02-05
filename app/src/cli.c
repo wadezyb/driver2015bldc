@@ -276,11 +276,13 @@ void findCommandInList(char* string)
 			if( command.parameter == 1 )
 			{
 				ControlWord.Param|=CONTROLWORD_SWITCH_ON;
+				PWMON();
 				sciSendString("Run\r\n",bMessage);
 			}
 			else if( command.parameter == 0 )
 			{
 				ControlWord.Param&=~CONTROLWORD_SWITCH_ON;
+				PWMOFF();
 				sciSendString("\r\nStop",bMessage);				
 			}			
 		}
@@ -374,7 +376,7 @@ void findCommandInList(char* string)
 		Cn=0;
 		sciSendString("\r\n",bMessage);
 		sciSendString("Iq:\r\n",bMessage);		
-		while( Cn < 1000 )
+		while( Cn < 200 )
 		{
 			sciSendString(int2String(Cq[Cn],stringBuf),bMessage);
 			sciSendString(",",bMessage);
@@ -605,167 +607,167 @@ void findCommandInList(char* string)
 /*------------------------------------------------------------------------------*/
 	
 	#endif
-	#if (CAN_NODE == CAN_NODE_MASTER)
-	else if(strcmp(command.Name,"update")==0)
-	{
-		ControlWord.Param |= CONTROLWORD_UPDATE_POSITION;
+//	#if (CAN_NODE == CAN_NODE_MASTER)
+//	else if(strcmp(command.Name,"update")==0)
+//	{
+//		ControlWord.Param |= CONTROLWORD_UPDATE_POSITION;
 //		CAN_send(CAN_NODE1,CONTROLWORD_INDEX,0,ControlWord.Param);
 //		CAN_send(CAN_NODE2,CONTROLWORD_INDEX,0,ControlWord.Param);
 //		CAN_send(CAN_NODE3,CONTROLWORD_INDEX,0,ControlWord.Param);
 //		CAN_send(CAN_NODE4,CONTROLWORD_INDEX,0,ControlWord.Param);
 //		ControlWord.Param &= ~CONTROLWORD_UPDATE_POSITION;
-		sciSendString("\r\n",bMessage);
-		sciSendString(command.Name,bMessage);
-	}
-	else if(strcmp(command.Name,"runAll")==0)
-	{
-		Joint1.ControlWord.Param|=CONTROLWORD_SWITCH_ON;
-		Joint2.ControlWord.Param|=CONTROLWORD_SWITCH_ON;
-		Joint3.ControlWord.Param|=CONTROLWORD_SWITCH_ON;
-		Joint4.ControlWord.Param|=CONTROLWORD_SWITCH_ON;
-		sciSendString("\r\nAllJ Running...",bMessage);
-	}
-		else if(strcmp(command.Name,"kAll")==0)
-	{
-		Joint1.ControlWord.Param&=~CONTROLWORD_SWITCH_ON;
-		Joint2.ControlWord.Param&=~CONTROLWORD_SWITCH_ON;
-		Joint3.ControlWord.Param&=~CONTROLWORD_SWITCH_ON;
-		Joint4.ControlWord.Param&=~CONTROLWORD_SWITCH_ON;
-		sciSendString("\r\nAllJ Stop",bMessage);
-	}
-	else if(strcmp(command.Name,"runJ1")==0)
-	{
-		Joint1.ControlWord.Param|=CONTROLWORD_SWITCH_ON;
-		sciSendString("\r\nJ1 Running...",bMessage);
-	}
-	else if(strcmp(command.Name,"kJ1")==0)
-	{
-		Joint1.ControlWord.Param&=~CONTROLWORD_SWITCH_ON;
-		sciSendString("\r\nJ1 Stop...",bMessage);
-	}	
-	else if(strcmp(command.Name,"J1")==0)
-	{
-		if(command.ParameterLength!=0)
-		{
-			Joint1.TargetPosition.Param = command.parameter;					
-		}
-		//CAN_send(CAN_NODE1,POSITION_DEMAND_VALUE_INDEX,0,Joint1.TargetPosition.Param);
-		sciSendString("\r\n",bMessage);
-		sciSendString(command.Name,bMessage);
-		sciSendString(" ",bMessage);
-		sciSendString(int2String(Joint1.ActualPosition.Param,stringBuf),bMessage);
-	}
-	else if(strcmp(command.Name,"J1M")==0)
-	{
-		if(command.ParameterLength!=0)
-		{
-			Joint1.ModesofOperation.Param = command.parameter;					
-		}
-		sciSendString("\r\n",bMessage);
-		sciSendString(command.Name,bMessage);
-		sciSendString(" ",bMessage);
-		sciSendString(int2String(Joint1.ModesofOperation.Param,stringBuf),bMessage);
-	}	
-	else if(strcmp(command.Name,"runJ2")==0)
-	{
-		Joint2.ControlWord.Param|=CONTROLWORD_SWITCH_ON;
-		sciSendString("\r\nJ2 Running...",bMessage);
-	}
-	else if(strcmp(command.Name,"kJ2")==0)
-	{
-		Joint2.ControlWord.Param&=~CONTROLWORD_SWITCH_ON;
-		sciSendString("\r\nJ2 Stop...",bMessage);
-	}		
-	else if(strcmp(command.Name,"J2")==0)
-	{
-		if(command.ParameterLength!=0)
-		{
-			Joint2.TargetPosition.Param = command.parameter;					
-		}
-		//CAN_send(CAN_NODE2,POSITION_DEMAND_VALUE_INDEX,0,Joint2.TargetPosition.Param);
-		sciSendString("\r\n",bMessage);
-		sciSendString(command.Name,bMessage);
-		sciSendString(" ",bMessage);
-		sciSendString(int2String(Joint2.ActualPosition.Param,stringBuf),bMessage);
-	}
-	else if(strcmp(command.Name,"J2M")==0)
-	{
-		if(command.ParameterLength!=0)
-		{
-			Joint2.ModesofOperation.Param = command.parameter;					
-		}
-		sciSendString("\r\n",bMessage);
-		sciSendString(command.Name,bMessage);
-		sciSendString(" ",bMessage);
-		sciSendString(int2String(Joint2.ModesofOperation.Param,stringBuf),bMessage);
-	}		
-	else if(strcmp(command.Name,"runJ3")==0)
-	{
-		Joint3.ControlWord.Param|=CONTROLWORD_SWITCH_ON;
-		sciSendString("\r\nJ3 Running...",bMessage);
-	}
-	else if(strcmp(command.Name,"kJ3")==0)
-	{
-		Joint3.ControlWord.Param&=~CONTROLWORD_SWITCH_ON;
-		sciSendString("\r\nJ3 Stop...",bMessage);
-	}		
-	else if(strcmp(command.Name,"J3")==0)
-	{
-		if(command.ParameterLength!=0)
-		{
-			Joint3.TargetPosition.Param = command.parameter;
-		}
-		//CAN_send(CAN_NODE3,POSITION_DEMAND_VALUE_INDEX,0,Joint3.TargetPosition.Param);
-		sciSendString("\r\n",bMessage);
-		sciSendString(command.Name,bMessage);
-		sciSendString(" ",bMessage);
-		sciSendString(int2String(Joint3.ActualPosition.Param,stringBuf),bMessage);
-	}
-	else if(strcmp(command.Name,"J3M")==0)
-	{
-		if(command.ParameterLength!=0)
-		{
-			Joint3.ModesofOperation.Param = command.parameter;					
-		}
-		sciSendString("\r\n",bMessage);
-		sciSendString(command.Name,bMessage);
-		sciSendString(" ",bMessage);
-		sciSendString(int2String(Joint3.ModesofOperation.Param,stringBuf),bMessage);
-	}		
-	else if(strcmp(command.Name,"runJ4")==0)
-	{
-		Joint4.ControlWord.Param|=CONTROLWORD_SWITCH_ON;
-		sciSendString("\r\nJ4 Running...",bMessage);
-	}
-	else if(strcmp(command.Name,"kJ4")==0)
-	{
-		Joint4.ControlWord.Param&=~CONTROLWORD_SWITCH_ON;
-		sciSendString("\r\nJ4 Stop...",bMessage);
-	}		
-	else if(strcmp(command.Name,"J4")==0)
-	{
-		if(command.ParameterLength!=0)
-		{
-			Joint4.TargetPosition.Param = command.parameter;					
-		}
-		//CAN_send(CAN_NODE4,POSITION_DEMAND_VALUE_INDEX,0,Joint4.TargetPosition.Param);
-		sciSendString("\r\n",bMessage);
-		sciSendString(command.Name,bMessage);
-		sciSendString(" ",bMessage);
-		sciSendString(int2String(Joint4.ActualPosition.Param,stringBuf),bMessage);
-	}
-	else if(strcmp(command.Name,"J4M")==0)
-	{
-		if(command.ParameterLength!=0)
-		{
-			Joint4.ModesofOperation.Param = command.parameter;					
-		}
-		sciSendString("\r\n",bMessage);
-		sciSendString(command.Name,bMessage);
-		sciSendString(" ",bMessage);
-		sciSendString(int2String(Joint4.ModesofOperation.Param,stringBuf),bMessage);
-	}		
-	#endif
+//		sciSendString("\r\n",bMessage);
+//		sciSendString(command.Name,bMessage);
+//	}
+//	else if(strcmp(command.Name,"runAll")==0)
+//	{
+//		Joint1.ControlWord.Param|=CONTROLWORD_SWITCH_ON;
+//		Joint2.ControlWord.Param|=CONTROLWORD_SWITCH_ON;
+//		Joint3.ControlWord.Param|=CONTROLWORD_SWITCH_ON;
+//		Joint4.ControlWord.Param|=CONTROLWORD_SWITCH_ON;
+//		sciSendString("\r\nAllJ Running...",bMessage);
+//	}
+//		else if(strcmp(command.Name,"kAll")==0)
+//	{
+//		Joint1.ControlWord.Param&=~CONTROLWORD_SWITCH_ON;
+//		Joint2.ControlWord.Param&=~CONTROLWORD_SWITCH_ON;
+//		Joint3.ControlWord.Param&=~CONTROLWORD_SWITCH_ON;
+//		Joint4.ControlWord.Param&=~CONTROLWORD_SWITCH_ON;
+//		sciSendString("\r\nAllJ Stop",bMessage);
+//	}
+//	else if(strcmp(command.Name,"runJ1")==0)
+//	{
+//		Joint1.ControlWord.Param|=CONTROLWORD_SWITCH_ON;
+//		sciSendString("\r\nJ1 Running...",bMessage);
+//	}
+//	else if(strcmp(command.Name,"kJ1")==0)
+//	{
+//		Joint1.ControlWord.Param&=~CONTROLWORD_SWITCH_ON;
+//		sciSendString("\r\nJ1 Stop...",bMessage);
+//	}	
+//	else if(strcmp(command.Name,"J1")==0)
+//	{
+//		if(command.ParameterLength!=0)
+//		{
+//			Joint1.TargetPosition.Param = command.parameter;					
+//		}
+//		//CAN_send(CAN_NODE1,POSITION_DEMAND_VALUE_INDEX,0,Joint1.TargetPosition.Param);
+//		sciSendString("\r\n",bMessage);
+//		sciSendString(command.Name,bMessage);
+//		sciSendString(" ",bMessage);
+//		sciSendString(int2String(Joint1.ActualPosition.Param,stringBuf),bMessage);
+//	}
+//	else if(strcmp(command.Name,"J1M")==0)
+//	{
+//		if(command.ParameterLength!=0)
+//		{
+//			Joint1.ModesofOperation.Param = command.parameter;					
+//		}
+//		sciSendString("\r\n",bMessage);
+//		sciSendString(command.Name,bMessage);
+//		sciSendString(" ",bMessage);
+//		sciSendString(int2String(Joint1.ModesofOperation.Param,stringBuf),bMessage);
+//	}	
+//	else if(strcmp(command.Name,"runJ2")==0)
+//	{
+//		Joint2.ControlWord.Param|=CONTROLWORD_SWITCH_ON;
+//		sciSendString("\r\nJ2 Running...",bMessage);
+//	}
+//	else if(strcmp(command.Name,"kJ2")==0)
+//	{
+//		Joint2.ControlWord.Param&=~CONTROLWORD_SWITCH_ON;
+//		sciSendString("\r\nJ2 Stop...",bMessage);
+//	}		
+//	else if(strcmp(command.Name,"J2")==0)
+//	{
+//		if(command.ParameterLength!=0)
+//		{
+//			Joint2.TargetPosition.Param = command.parameter;					
+//		}
+//		//CAN_send(CAN_NODE2,POSITION_DEMAND_VALUE_INDEX,0,Joint2.TargetPosition.Param);
+//		sciSendString("\r\n",bMessage);
+//		sciSendString(command.Name,bMessage);
+//		sciSendString(" ",bMessage);
+//		sciSendString(int2String(Joint2.ActualPosition.Param,stringBuf),bMessage);
+//	}
+//	else if(strcmp(command.Name,"J2M")==0)
+//	{
+//		if(command.ParameterLength!=0)
+//		{
+//			Joint2.ModesofOperation.Param = command.parameter;					
+//		}
+//		sciSendString("\r\n",bMessage);
+//		sciSendString(command.Name,bMessage);
+//		sciSendString(" ",bMessage);
+//		sciSendString(int2String(Joint2.ModesofOperation.Param,stringBuf),bMessage);
+//	}		
+//	else if(strcmp(command.Name,"runJ3")==0)
+//	{
+//		Joint3.ControlWord.Param|=CONTROLWORD_SWITCH_ON;
+//		sciSendString("\r\nJ3 Running...",bMessage);
+//	}
+//	else if(strcmp(command.Name,"kJ3")==0)
+//	{
+//		Joint3.ControlWord.Param&=~CONTROLWORD_SWITCH_ON;
+//		sciSendString("\r\nJ3 Stop...",bMessage);
+//	}		
+//	else if(strcmp(command.Name,"J3")==0)
+//	{
+//		if(command.ParameterLength!=0)
+//		{
+//			Joint3.TargetPosition.Param = command.parameter;
+//		}
+//		//CAN_send(CAN_NODE3,POSITION_DEMAND_VALUE_INDEX,0,Joint3.TargetPosition.Param);
+//		sciSendString("\r\n",bMessage);
+//		sciSendString(command.Name,bMessage);
+//		sciSendString(" ",bMessage);
+//		sciSendString(int2String(Joint3.ActualPosition.Param,stringBuf),bMessage);
+//	}
+//	else if(strcmp(command.Name,"J3M")==0)
+//	{
+//		if(command.ParameterLength!=0)
+//		{
+//			Joint3.ModesofOperation.Param = command.parameter;					
+//		}
+//		sciSendString("\r\n",bMessage);
+//		sciSendString(command.Name,bMessage);
+//		sciSendString(" ",bMessage);
+//		sciSendString(int2String(Joint3.ModesofOperation.Param,stringBuf),bMessage);
+//	}		
+//	else if(strcmp(command.Name,"runJ4")==0)
+//	{
+//		Joint4.ControlWord.Param|=CONTROLWORD_SWITCH_ON;
+//		sciSendString("\r\nJ4 Running...",bMessage);
+//	}
+//	else if(strcmp(command.Name,"kJ4")==0)
+//	{
+//		Joint4.ControlWord.Param&=~CONTROLWORD_SWITCH_ON;
+//		sciSendString("\r\nJ4 Stop...",bMessage);
+//	}		
+//	else if(strcmp(command.Name,"J4")==0)
+//	{
+//		if(command.ParameterLength!=0)
+//		{
+//			Joint4.TargetPosition.Param = command.parameter;					
+//		}
+//		//CAN_send(CAN_NODE4,POSITION_DEMAND_VALUE_INDEX,0,Joint4.TargetPosition.Param);
+//		sciSendString("\r\n",bMessage);
+//		sciSendString(command.Name,bMessage);
+//		sciSendString(" ",bMessage);
+//		sciSendString(int2String(Joint4.ActualPosition.Param,stringBuf),bMessage);
+//	}
+//	else if(strcmp(command.Name,"J4M")==0)
+//	{
+//		if(command.ParameterLength!=0)
+//		{
+//			Joint4.ModesofOperation.Param = command.parameter;					
+//		}
+//		sciSendString("\r\n",bMessage);
+//		sciSendString(command.Name,bMessage);
+//		sciSendString(" ",bMessage);
+//		sciSendString(int2String(Joint4.ModesofOperation.Param,stringBuf),bMessage);
+//	}		
+//	#endif
 //	/* TEST */
 //	else if(strcmp(command.Name,"testled")==0)
 //	{

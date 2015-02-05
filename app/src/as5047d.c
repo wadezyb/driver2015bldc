@@ -67,7 +67,7 @@ int asRead( int addr )
 /* Get the encoder value, resolution is 12-bit */
 int getEncoderValue( void )
 {
-    return (asRead(0X3ffe)&0x3fff)>>2 + MagnetEncOffset;
+    return (asRead(0X3ffe)&0x3fff);
 }
 
 

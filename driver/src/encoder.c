@@ -13,6 +13,7 @@
 #include "encoder.h"
 #include "canopen.h"
 #include "vloop.h"
+#include "as5047d.h"
 
 /* Private Define */
 #define PI (3.1416)
@@ -55,8 +56,8 @@ void TIM6_Configuration(void)
 	NVIC_InitTypeDef   NVIC_InitStructure;
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM6 , ENABLE);	       
 
-	TIM_TimeBaseStructure.TIM_Period = (16800-1); 						
-	TIM_TimeBaseStructure.TIM_Prescaler =5-1; 	              
+	TIM_TimeBaseStructure.TIM_Period = (1680-1); 						
+	TIM_TimeBaseStructure.TIM_Prescaler =10-1; 	              
 	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; 	
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
 	TIM_TimeBaseStructure.TIM_RepetitionCounter = 0; 		
@@ -95,28 +96,32 @@ void Encoder_Configuration(void)
 //	NVIC_SetPriority(TIM3_IRQn,15);
 	
 	/* Set the IO */
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0+GPIO_Pin_1;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0+GPIO_Pin_6;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Low_Speed;
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-	GPIO_Init(GPIOB, &GPIO_InitStructure);
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
 
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_11;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
 	GPIO_InitStructure.GPIO_Speed = GPIO_High_Speed;
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-	//GPIO_Init(GPIOC, &GPIO_InitStructure);
+	GPIO_Init(GPIOC, &GPIO_InitStructure);
 
 	//GPIO_PinAFConfig(GPIOC,GPIO_PinSource11,GPIO_AF_UART4);
-	GPIO_PinAFConfig(GPIOB,GPIO_PinSource0,GPIO_AF_TIM3);
-	GPIO_PinAFConfig(GPIOB,GPIO_PinSource1,GPIO_AF_TIM3);
+	GPIO_PinAFConfig(GPIOA,GPIO_PinSource6,GPIO_AF_TIM3);
+	GPIO_PinAFConfig(GPIOC,GPIO_PinSource7,GPIO_AF_TIM3);
 
 	/* Set the Encoder Mode */
 	TIM_SetAutoreload(TIM3,INC_ENC_REVOLUTION-1);
 	TIM_EncoderInterfaceConfig(TIM3,TIM_EncoderMode_TI12,TIM_ICPolarity_Falling,TIM_ICPolarity_Falling);
 	TIM_Cmd(TIM3,ENABLE);
+	
+	//
+	TIM3->CNT = (getEncoderValue()+2116+1000)/4*2000/4096%2000;//2116//1725
+	
 	EncoderObjInit();
-	//TIM6_Configuration();
+	TIM6_Configuration();
 	//USART4_Configuration();
 	
 }	

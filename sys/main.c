@@ -81,13 +81,15 @@ int main(void)
   */
 static void prvSetupHardware( void )
 {
-	//Encoder_Configuration();
+	// Initialize the Magnetic Encoder
 	SPI1_Init();
+	Encoder_Configuration();// spi init must before this operation!!!
+	
 	sciConfiguration();
 	//CAN_Configuration();
 	pwmConfiguration();
 	ADC_Configuration();
-	//vPI_Init();
+	vPI_Init();
 	currentLoopInit();
 }
 
@@ -107,13 +109,10 @@ void startTask ( void *pvParameters )
 	
   xTaskCreate( temptureTestTask, "temptureTestTask", configMINIMAL_STACK_SIZE*2, NULL, 2, NULL );
 	
-	xTaskCreate( voltageTestTask, "testSVPWMTask", configMINIMAL_STACK_SIZE*2, NULL, 3, NULL );
+	//xTaskCreate( as5047dTask, "testSVPWMTask", configMINIMAL_STACK_SIZE*2, NULL, 3, NULL );
 	
-	#if (CAN_NODE != CAN_NODE_MASTER)
-	//xTaskCreate( calibrationTask, "Calibration", configMINIMAL_STACK_SIZE, NULL, 7, NULL );	
-//	
-	
-	#endif
+	xTaskCreate( calibrationTask, "Calibration", configMINIMAL_STACK_SIZE, NULL, 7, NULL );	
+
 	
 //	xTaskCreate( sendPositionTask, "sendPosition", configMINIMAL_STACK_SIZE*2, NULL, 2, NULL );
 //	

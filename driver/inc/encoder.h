@@ -3,14 +3,11 @@
 
 #define ENCODER_COUNTER TIM3->CNT
 
-#define INC_ENC_REVOLUTION (int)(1024*4) // 增量编码器分辨率
+#define INC_ENC_REVOLUTION (int)(500*4) // 增量编码器分辨率
 #define ABS_ENC_REVOLUTION (int)(1024*4)//绝对值编码器分辨率
-#define MOTOR_POLE (4)
+#define MOTOR_POLE (2)
 #define ELEC_REVOLUTION_INC (INC_ENC_REVOLUTION/MOTOR_POLE)
 #define ELEC_REVOLUTION_ABS (ABS_ENC_REVOLUTION/MOTOR_POLE)
-
-#define K (1.38) 	//绝对编码器（4096每圈）和增量编码器分辨率之比
-#define D (int)(4096/K)			//增量编码器的分辨率
 
 /*编码器读数结构体*/
 typedef struct _encoderReadType

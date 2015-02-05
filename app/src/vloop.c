@@ -24,10 +24,10 @@ int Vt=0;
 void vPI_Init( void )
 {
 	Velocity.vPI.Hz = 1000;
-	Velocity.vPI.kp = 4000;//
-	Velocity.vPI.ki = 100;//
+	Velocity.vPI.kp = 12000;//
+	Velocity.vPI.ki = 300;//
 	Velocity.vPI.scale = 100;
-	Velocity.vPI.output_max = 2000;
+	Velocity.vPI.output_max = 1500*CURRENT_K;
 	Velocity.vPI.sum_error_max = Velocity.vPI.output_max*Velocity.vPI.scale;
 	
 //	//for joint 4

@@ -10,7 +10,7 @@ cLoopObj Current;
 SVPWMObj SVPWM;
 
 //int Cd[1000];
-int Cq[1000];
+int Cq[200];
 int Cn=0;
 int tuningStartFlag=0;
 int Cti=100;//Tuning target Current value
@@ -144,19 +144,19 @@ void currentLoopInit( void )
 	Current.IA_Offset = 2048;
 	Current.IB_Offset = 2048;
 	
-	Current.dPI.kp = 1000;
-	Current.dPI.ki = 1;
-	Current.dPI.scale = 100;
-	Current.dPI.output_max = 4000;
-	Current.dPI.output_min = -4000;
-	Current.dPI.sum_error_max = 4000*Current.dPI.scale;
+	Current.dPI.kp = 360;
+	Current.dPI.ki = 12;
+	Current.dPI.scale = 1000;
+	Current.dPI.output_max = 1600;
+	Current.dPI.output_min = -1600;
+	Current.dPI.sum_error_max = 1600*Current.dPI.scale;
 	
-	Current.qPI.kp = 1000;
-	Current.qPI.ki = 1;
-	Current.qPI.scale = 100;
-	Current.qPI.output_max = 4000;
-	Current.qPI.output_min = -4000;
-	Current.qPI.sum_error_max = 4000*Current.qPI.scale;
+	Current.qPI.kp = 360;
+	Current.qPI.ki = 12;
+	Current.qPI.scale = 1000;
+	Current.qPI.output_max = 1600;
+	Current.qPI.output_min = -1600;
+	Current.qPI.sum_error_max = 1600*Current.qPI.scale;
 	
 	Current.targetCurrent = 0;
 	Current.Id_exp = 0;
@@ -255,7 +255,7 @@ void runSVPWM( int Vref, float theta )
 }
 void cloopTuning( void )
 {
-	if( Cn < 1000 )
+	if( Cn < 200 )
 	{
 		//Cd[Cn] = Current.Id;
 		Cq[Cn] = Current.Iq;	
@@ -265,9 +265,9 @@ void cloopTuning( void )
 	{
 		tuningStartFlag=0;
 	}
-	if( (Cn<100)||(Cn>800)||(Cn>400&&Cn<600) )
+	if( (Cn<20)||(Cn>180)||(Cn>80&&Cn<120) )
 		Current.targetCurrent = 0;
-	else if( (Cn >100)&&(Cn < 400) )
+	else if( (Cn >20)&&(Cn < 80) )
 		Current.targetCurrent = -Cti;
 	else
 		Current.targetCurrent = Cti;
@@ -282,7 +282,7 @@ void currentLoop( void )
 	
 	//Read Encoder Angle
 	//Current.Theta = 3600*(ELEC_REVOLUTION_INC-TIM3->CNT%ELEC_REVOLUTION_INC)/(ELEC_REVOLUTION_INC);
-	temp = getEncoderValue();
+	temp = 2000- TIM3->CNT;
 	Current.Theta = 3600*(temp%ELEC_REVOLUTION_INC)/(ELEC_REVOLUTION_INC);
 	
 	//Read current value from ADC1
@@ -369,12 +369,12 @@ void testSVPWMTask( void *pvParameters )
 {
     int angle= 0;
     float theta = 0;
-    A = 100;
+    A = 500;
     vTaskDelay(1000);
     PWMON();
     for(;;)
     {
-        angle = angle + 10;
+        angle = angle + 1;
         theta = angle*PI/1800;
         runSVPWM(A,theta);
         vTaskDelay(1);
