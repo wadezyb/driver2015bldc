@@ -1,6 +1,6 @@
 #ifndef _FOC_H_
 #define _FOC_H_
-
+#include "pwm.h"
 typedef struct
 {
 	int Sector;

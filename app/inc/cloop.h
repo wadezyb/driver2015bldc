@@ -1,6 +1,7 @@
 #ifndef _CLOOP_H_
 #define _CLOOP_H_
 
+#include "pwm.h"
 #define Tz (T_PWM-50)
 #define PI (float)(3.14159265359)
 #define CURRENT_R (12.0) 				//mO
@@ -84,4 +85,5 @@ void currentLoopInit( void );
 void currentLoop( void );
 void test_cloopTask( void *pvParameters );
 void testSVPWMTask( void *pvParameters );
+
 #endif
