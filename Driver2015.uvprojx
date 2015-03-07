@@ -32,7 +32,7 @@
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
           <SFDFile>$$Device:STM32F405RG$SVD\STM32F40x.svd</SFDFile>
-          <bCustSvd>1</bCustSvd>
+          <bCustSvd>0</bCustSvd>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
           <IncludePath></IncludePath>

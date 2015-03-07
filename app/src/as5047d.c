@@ -78,9 +78,9 @@ void as5047dTask( void *pvParameters )
 	vTaskDelay(1000);
 	for(;;)
 	{
-		vTaskDelay(100);
-    MagnetEncValue = (asRead(0X3ffe)&0x3fff)>>2;
-		//value = evenParity(i);
+		vTaskDelay(1000);
+    //MagnetEncValue = (asRead(0X3ffe)&0x3fff)>>2;
+		MagnetEncValue = asRead(0X0019);
 	}
 }
 

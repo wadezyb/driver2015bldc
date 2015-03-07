@@ -109,7 +109,7 @@ void startTask ( void *pvParameters )
 	
   xTaskCreate( temptureTestTask, "temptureTestTask", configMINIMAL_STACK_SIZE*2, NULL, 2, NULL );
 	
-	//xTaskCreate( as5047dTask, "testSVPWMTask", configMINIMAL_STACK_SIZE*2, NULL, 3, NULL );
+	//xTaskCreate( as5047dTask, "as5047dTask", configMINIMAL_STACK_SIZE*2, NULL, 3, NULL );
 	
 	xTaskCreate( calibrationTask, "Calibration", configMINIMAL_STACK_SIZE, NULL, 7, NULL );	
 
